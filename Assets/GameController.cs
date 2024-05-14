@@ -21,10 +21,6 @@ public class GameController : MonoBehaviour
     public GameObject npcLifeBar;
     public GameObject playerLevel;
     public GameObject npcLevel;
-
-    public int playerLevelNr;
-    public int npcLevelNr;
-
     public bool playerDied = false;
 
     public bool gameIsRunning;
