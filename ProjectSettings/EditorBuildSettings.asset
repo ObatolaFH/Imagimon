@@ -8,4 +8,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: bb2252d2fd6194f14a8e27b5c7e4c080
+  - enabled: 1
+    path: Assets/Scenes/CreateScene.unity
+    guid: 8bb234688a8b548a48963bd7aa5055d4
+  - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 6f95d5b45d0924a23adf4a85f9b4a228
+  - enabled: 1
+    path: Assets/Scenes/OptionsScene.unity
+    guid: bd31ba5c4f7e64e43a5db6f79491df33
+  - enabled: 1
+    path: Assets/Scenes/Overworld.unity
+    guid: f04bfe45be6ea3c4ea16c6f1c1d78dc7
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: b9c0b63fa76ec47dc8ba185e31bdb23e
   m_configObjects: {}
