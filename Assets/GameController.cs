@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class GameController : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        GameController.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
     void StartGame()
