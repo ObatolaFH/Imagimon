@@ -52,6 +52,11 @@ public class GameController : MonoBehaviour
         //StartCoroutine(StartGame());
     }
 
+    public void LoadScene(string sceneName)
+    {
+        GameController.LoadScene(sceneName);
+    }
+
     void StartGame()
     {
         gameIsRunning = true;

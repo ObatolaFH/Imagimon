@@ -891,9 +891,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: f60fb49b938e54020b8c27ccdfd738dd, type: 3}
+      - m_Target: {fileID: 1528444446}
         m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
+        m_MethodName: 
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -902,7 +902,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: MenuScene
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
 --- !u!114 &1362658837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,8 +963,6 @@ MonoBehaviour:
   npcLifeBar: {fileID: 0}
   playerLevel: {fileID: 0}
   npcLevel: {fileID: 0}
-  playerLevelNr: 0
-  npcLevelNr: 0
   playerDied: 0
   gameIsRunning: 0
   levelUp: 0
@@ -985,6 +983,7 @@ GameObject:
   - component: {fileID: 1528444449}
   - component: {fileID: 1528444448}
   - component: {fileID: 1528444447}
+  - component: {fileID: 1528444451}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1077,6 +1076,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1528444451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528444446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ec176e750254b36a87593dad1d456f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerImagimon: {fileID: 0}
+  npcImagimon: {fileID: 0}
+  startSong: {fileID: 0}
+  currentLifeBarStatus: 100
+  currentNpcLifeBarStatus: 100
+  xpText: {fileID: 0}
+  playerLifeBar: {fileID: 0}
+  npcLifeBar: {fileID: 0}
+  playerLevel: {fileID: 0}
+  npcLevel: {fileID: 0}
+  playerDied: 0
+  gameIsRunning: 0
+  levelUp: 0
+  fightSong: {fileID: 0}
+  createSong: {fileID: 0}
+  homeButton: {fileID: 0}
+  nextLevelButton: {fileID: 0}
+  retryButton: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
