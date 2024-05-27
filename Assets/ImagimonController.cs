@@ -26,8 +26,7 @@ public class ImagimonController : MonoBehaviour
 
 
     public bool isChanged;
-    public ImagimonController 
-
+    //Image infusion here
     public void Update()
     {
         if (!isChanged)
