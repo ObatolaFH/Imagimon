@@ -618,6 +618,9 @@ GameObject:
   - component: {fileID: 126907254}
   - component: {fileID: 126907259}
   - component: {fileID: 126907258}
+  - component: {fileID: 126907260}
+  - component: {fileID: 126907262}
+  - component: {fileID: 126907261}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -757,6 +760,51 @@ MonoBehaviour:
   homeButton: {fileID: 0}
   nextLevelButton: {fileID: 0}
   retryButton: {fileID: 0}
+--- !u!114 &126907260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126907253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746a8483e9c8f49898ac5903e53f7261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImagimonName: {fileID: 0}
+  ImagimonType: {fileID: 0}
+  PrimeColor: {fileID: 0}
+  SecondaryColor: {fileID: 0}
+  SignatureMove: {fileID: 0}
+  ImagimonStats: {fileID: 0}
+--- !u!114 &126907261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126907253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6861812a0024c61976a69f4c0554c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &126907262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126907253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1eb05af6d391b4eb0f4c070a99f1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 0}
+  dropdownWithoutPlaceholder: {fileID: 0}
+  dropdownWithPlaceholder: {fileID: 0}
 --- !u!1 &211701212
 GameObject:
   m_ObjectHideFlags: 0
@@ -4859,6 +4907,7 @@ GameObject:
   - component: {fileID: 1649962348}
   - component: {fileID: 1649962347}
   - component: {fileID: 1649962346}
+  - component: {fileID: 1649962349}
   m_Layer: 5
   m_Name: PlaceholderImagimonImage
   m_TagString: Untagged
@@ -4938,6 +4987,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649962344}
   m_CullTransparentMesh: 1
+--- !u!114 &1649962349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649962344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746a8483e9c8f49898ac5903e53f7261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImagimonName: {fileID: 0}
+  ImagimonType: {fileID: 0}
+  PrimeColor: {fileID: 0}
+  SecondaryColor: {fileID: 0}
+  SignatureMove: {fileID: 0}
+  ImagimonStats: {fileID: 0}
 --- !u!1 &1662000582
 GameObject:
   m_ObjectHideFlags: 0
