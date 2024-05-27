@@ -10,8 +10,7 @@ public class DropDownController : MonoBehaviour
     {
         switch (index)
         {
-            case 0: TypeDropDown = "Bird"; 
-            image break;
+            case 0: TypeDropDown = "Bird"; break;
             case 1: TypeDropDown = "Cow"; break;
             case 2: TypeDropDown = "Fox"; break;
             case 3: TypeDropDown = "Cat"; break;
