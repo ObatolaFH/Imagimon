@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class ImagimonController : MonoBehaviour
 {
-    public GameObject ImagimonName;
-    public GameObject ImagimonType;
+    public string ImagimonName;
+    public string ImagimonType;
     public GameObject PrimeColor;
     public GameObject SecondaryColor;
     public GameObject SignatureMove;
