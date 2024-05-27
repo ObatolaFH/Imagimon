@@ -2311,6 +2311,7 @@ GameObject:
   - component: {fileID: 917130510}
   - component: {fileID: 917130509}
   - component: {fileID: 917130508}
+  - component: {fileID: 917130512}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2401,6 +2402,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &917130512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917130507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ec176e750254b36a87593dad1d456f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerImagimon: {fileID: 0}
+  npcImagimon: {fileID: 0}
+  startSong: {fileID: 0}
+  currentLifeBarStatus: 100
+  currentNpcLifeBarStatus: 100
+  xpText: {fileID: 0}
+  playerLifeBar: {fileID: 0}
+  npcLifeBar: {fileID: 0}
+  playerLevel: {fileID: 0}
+  npcLevel: {fileID: 0}
+  playerDied: 0
+  gameIsRunning: 0
+  levelUp: 0
+  fightSong: {fileID: 0}
+  createSong: {fileID: 0}
+  homeButton: {fileID: 0}
+  nextLevelButton: {fileID: 0}
+  retryButton: {fileID: 0}
 --- !u!1 &1219782223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2552,16 +2583,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1973611613}
-        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
-        m_MethodName: HomeScene
-        m_Mode: 1
+      - m_Target: {fileID: 917130512}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MenuScene
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &1254512609
