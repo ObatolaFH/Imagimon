@@ -6,25 +6,21 @@ using UnityEngine.UI;
 
 public class ImagimonController : MonoBehaviour
 {
-    public string ImagimonName;
-    public string ImagimonType;
+   // public string ImagimonName;
+   // public string imagimonType;
+    //public string ImagimonType;
     public GameObject PrimeColor;
     public GameObject SecondaryColor;
     public GameObject SignatureMove;
     public GameObject ImagimonStats;
 
-    string Option1 = "cat";
-    string Option2 = "bird";
-    string Option3 = "cow";
-    string Option4 = "racoon";
+    //public Image oldImage;
+   // public Sprite newImage;
+    //public List<Sprite> sprites;
 
-    string chosenImagimonType = "default";
-    string chosenPrimeColor = "default";
-
-    //if(dropdown OnCLick "Cat"){then bool isChanged true & chosenImagimonType = Cat}
-    //switch (case 1: case 2: case 3: case 4:)
-
-
+    //public string chosenImagimonType;
+   // string chosenPrimeColor = "default";
+/*
     public bool isChanged;
     //Image infusion here
     public void Update()
@@ -37,6 +33,11 @@ public class ImagimonController : MonoBehaviour
             isChanged = false;
         }
     }
+    public void ImageChange()
+    {
+        oldImage.sprite = newImage;
+    }
+ */
 
     /*IEnumerator Move(Vector3 targetPos)
     {
