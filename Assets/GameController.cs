@@ -88,7 +88,7 @@ public class GameController : MonoBehaviour
     {
         int xpPoints = 0; //10 for level 2, 11 for lvl3, 12 for lvl4
         int level = 0;
-        int levelThreshold = 10;
+        //int levelThreshold = 10;
 
         if (xpPoints >= (currentLevel - 1) * ((currentLevel - 1) + 1) / 2 + currentLevel * 10)
         {
