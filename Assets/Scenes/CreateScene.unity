@@ -4459,6 +4459,26 @@ MonoBehaviour:
   dropdown3: {fileID: 139931808}
   dropdown4: {fileID: 1735596691}
   targetImage: {fileID: 601231358}
+  dogsprites:
+  - {fileID: 21300000, guid: 03c070d7a06a641c09e4d2a76b8bd590, type: 3}
+  - {fileID: 21300000, guid: 176bbc14d091d40a7be5c246d0151853, type: 3}
+  - {fileID: 21300000, guid: 2335fc92324124c0db98ee634379e78b, type: 3}
+  birdsprites:
+  - {fileID: 21300000, guid: e98ba79c817f34d84a4e4ddf06c15f80, type: 3}
+  - {fileID: 21300000, guid: d56f935f3f4174b83a60cf33a6f379a3, type: 3}
+  - {fileID: 21300000, guid: 91e9f811658814aa39c78ddfa05aa817, type: 3}
+  - {fileID: 21300000, guid: 0f7343b15ec9442c89a3239637759f22, type: 3}
+  catsprites:
+  - {fileID: 21300000, guid: 16782ff61469346df94ec6d1c24b2e10, type: 3}
+  - {fileID: 21300000, guid: e193eb02868404b71b5f4d5d5f658f10, type: 3}
+  - {fileID: 21300000, guid: bc0d0ce52056848ca92085a0a584779d, type: 3}
+  - {fileID: 21300000, guid: 8b3d0278ba7e7475abb01de00cce828e, type: 3}
+  foxsprites:
+  - {fileID: 21300000, guid: d62524d17f26d466ca4ec6960f08ad40, type: 3}
+  - {fileID: 21300000, guid: afc563bbbd35a4e818b1333af590fc16, type: 3}
+  raccoonsprites:
+  - {fileID: 21300000, guid: fa99cb4a937b94d23a9e6f8ed6c12e95, type: 3}
+  - {fileID: 21300000, guid: 603550a76dd454cdfb6c5339cae86f45, type: 3}
 --- !u!1 &1624747691
 GameObject:
   m_ObjectHideFlags: 0
