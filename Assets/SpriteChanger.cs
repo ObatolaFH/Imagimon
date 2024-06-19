@@ -8,7 +8,7 @@ public class SpriteChanger : MonoBehaviour
     public Dropdown dropdown2;
     public Dropdown dropdown3;
     public Image targetImage;
-
+    public Image imagimonImage;
     public List<Sprite> dogsprites;
     public List<Sprite> birdsprites;
     public List<Sprite> catsprites;
@@ -89,10 +89,9 @@ public class SpriteChanger : MonoBehaviour
         if (index >= 0 && index < rightspritelist2[parentIndex].Count)
         {
             targetImage.sprite = rightspritelist2[parentIndex][index];
+            //imagimonImage.sprite = targetImage.sprite;
         }
-        // Store the chosen sprite in a chosen Imagimon variable TODO!
+        // Store the chosen sprite in a chosen Imagimon variable
     }
-
-
 
 }
