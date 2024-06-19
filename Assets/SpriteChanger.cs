@@ -7,7 +7,6 @@ public class SpriteChanger : MonoBehaviour
     public Dropdown dropdown1;
     public Dropdown dropdown2;
     public Dropdown dropdown3;
-    public Dropdown dropdown4;
     public Image targetImage;
 
     public List<Sprite> dogsprites;
@@ -15,23 +14,26 @@ public class SpriteChanger : MonoBehaviour
     public List<Sprite> catsprites;
     public List<Sprite> foxsprites;
     public List<Sprite> raccoonsprites;
-
+    public List<Sprite> dogsprites2;
+    public List<Sprite> birdsprites2;
+    public List<Sprite> catsprites2;
+    public List<Sprite> foxsprites2;
+    public List<Sprite> raccoonsprites2;
     private List<List<Sprite>> rightspritelist;
+    private List<List<Sprite>> rightspritelist2;
 
     void Start()
     {
         rightspritelist = new List<List<Sprite>> { dogsprites, birdsprites, catsprites, foxsprites, raccoonsprites };
-
+        rightspritelist2 = new List<List<Sprite>> { dogsprites2, birdsprites2, catsprites2, foxsprites2, raccoonsprites2 };
         InitializeDropdown(dropdown1, new List<string> { "Dog", "Bird", "Cat", "Fox", "Raccoon" });
         dropdown1.onValueChanged.AddListener(delegate { Dropdown1ValueChanged(dropdown1); });
 
         InitializeDropdown(dropdown2, new List<string>());
         InitializeDropdown(dropdown3, new List<string>());
-        InitializeDropdown(dropdown4, new List<string>());
 
         dropdown2.onValueChanged.AddListener(delegate { Dropdown2ValueChanged(dropdown2); });
         dropdown3.onValueChanged.AddListener(delegate { Dropdown3ValueChanged(dropdown3); });
-        dropdown4.onValueChanged.AddListener(delegate { Dropdown4ValueChanged(dropdown4); });
     }
 
     void InitializeDropdown(Dropdown dropdown, List<string> options)
@@ -50,9 +52,8 @@ public class SpriteChanger : MonoBehaviour
         }
         InitializeDropdown(dropdown2, options);
         
-        // Clear subsequent dropdowns
+        // Clear dropdown
         InitializeDropdown(dropdown3, new List<string>());
-        InitializeDropdown(dropdown4, new List<string>());
 
         // Update targetImage to the first sprite of the selected category
         if (rightspritelist[index].Count > 0)
@@ -65,16 +66,12 @@ public class SpriteChanger : MonoBehaviour
     {
         int parentIndex = dropdown1.value;
         int index = change.value;
-
         List<string> options = new List<string>();
-        foreach (var sprite in rightspritelist[parentIndex])
+        foreach (var sprite in rightspritelist2[parentIndex])
         {
             options.Add(sprite.name);
         }
         InitializeDropdown(dropdown3, options);
-
-        // Clear subsequent dropdown
-        InitializeDropdown(dropdown4, new List<string>());
 
         // Update targetImage to the selected sprite
         if (index >= 0 && index < rightspritelist[parentIndex].Count)
@@ -88,29 +85,14 @@ public class SpriteChanger : MonoBehaviour
         int parentIndex = dropdown1.value;
         int index = change.value;
 
-        List<string> options = new List<string>();
-        foreach (var sprite in rightspritelist[parentIndex])
-        {
-            options.Add(sprite.name);
-        }
-        InitializeDropdown(dropdown4, options);
-
         // Update targetImage to the selected sprite
-        if (index >= 0 && index < rightspritelist[parentIndex].Count)
+        if (index >= 0 && index < rightspritelist2[parentIndex].Count)
         {
-            targetImage.sprite = rightspritelist[parentIndex][index];
+            targetImage.sprite = rightspritelist2[parentIndex][index];
         }
+        // Store the chosen sprite in a chosen Imagimon variable TODO!
     }
 
-    void Dropdown4ValueChanged(Dropdown change)
-    {
-        int parentIndex = dropdown1.value;
-        int index = change.value;
 
-        // Update targetImage to the selected sprite
-        if (index >= 0 && index < rightspritelist[parentIndex].Count)
-        {
-            targetImage.sprite = rightspritelist[parentIndex][index];
-        }
-    }
+
 }
