@@ -12,6 +12,15 @@ public class AttacksSelector : MonoBehaviour
     private int currentSelections = 0;
 
     private Dictionary<string, bool> toggleStates = new Dictionary<string, bool>();
+     
+     void Start()
+     {
+        foreach (Toggle toggle in optionToggles)
+        toggle.onValueChanged.AddListener(delegate {
+            OnToggleValueChanged(toggle);
+            });
+     }
+     
      private void Awake()
     {
         // Ensure that there is only one instance of the AttackManager
