@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class HUD : MonoBehaviour
+public class HUDScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] TMP_Text nameText;
+    [SerializeField] TMP_Text levelText;
+    [SerializeField] HPBar hpBar;
 
-    // Update is called once per frame
-    void Update()
+
+    public void SetData(Imagimon imagimon)
     {
-        
+        nameText.text = imagimon.Base.Name; 
+        levelText.text = "Lvl " + imagimon.Level;
+        hpBar.SetHP((float)imagimon.HP / imagimon.MaxHP);
     }
 }
