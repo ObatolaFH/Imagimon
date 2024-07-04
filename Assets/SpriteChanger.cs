@@ -8,7 +8,6 @@ public class SpriteChanger : MonoBehaviour
     public Dropdown dropdown2;
     public Dropdown dropdown3;
     public Image targetImage;
-    public Image imagimonImage;
     public List<Sprite> dogsprites;
     public List<Sprite> birdsprites;
     public List<Sprite> catsprites;
@@ -41,6 +40,9 @@ public class SpriteChanger : MonoBehaviour
 
     private int previousDropdown1Value = -1; // Placeholder blocking
 
+    private Sprite chosenImagimonSprite;
+
+
     void Start()
     {
         dogsprites2 = new List<List<Sprite>> { shihtzu, beagle, labrador };
@@ -65,6 +67,8 @@ public class SpriteChanger : MonoBehaviour
         dropdown1.value = 0;
         dropdown2.value = 0;
         dropdown3.value = 0;
+        chosenImagimonSprite = targetImage.sprite;
+
         Dropdown1ValueChanged(dropdown1); // Ensure the initial selection triggers the method
 
     }
@@ -100,6 +104,8 @@ public class SpriteChanger : MonoBehaviour
         if (rightspritelist[index].Count > 0)
         {
             targetImage.sprite = rightspritelist[index][0];
+            chosenImagimonSprite = targetImage.sprite;
+
         }
         // Update dropdown2
         dropdown2.value = 0;
@@ -130,6 +136,8 @@ public class SpriteChanger : MonoBehaviour
             if (index >= 0 && index < rightspritelist[parentIndex].Count)
             {
                 targetImage.sprite = rightspritelist[parentIndex][index];
+                chosenImagimonSprite = targetImage.sprite;
+
             }
         }
         else
@@ -149,6 +157,16 @@ public class SpriteChanger : MonoBehaviour
         if (index >= 0 && index < rightspritelist2[parentIndex][secParentIndex].Count)
         {
             targetImage.sprite = rightspritelist2[parentIndex][secParentIndex][index];
+            chosenImagimonSprite = targetImage.sprite;
         }
     }
+
+    public void SaveImage()
+    {
+        Debug.Log("Saved ImagimonSprite: " + chosenImagimonSprite.name);
+
+        PlayerPrefs.SetString("SavedImagimonSpriteName", chosenImagimonSprite.name);
+    }
+    //TO DO:
+    //give savedImage, savedAttacks,saved name, saved Stats to ImagimonBase? 
 }
