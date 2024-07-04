@@ -14,26 +14,59 @@ public class SpriteChanger : MonoBehaviour
     public List<Sprite> catsprites;
     public List<Sprite> foxsprites;
     public List<Sprite> raccoonsprites;
-    public List<Sprite> dogsprites2;
-    public List<Sprite> birdsprites2;
-    public List<Sprite> catsprites2;
-    public List<Sprite> foxsprites2;
-    public List<Sprite> raccoonsprites2;
+
+    public List<Sprite> shihtzu;
+    public List<Sprite> beagle;
+    public List<Sprite> labrador;
+    public List<Sprite> bluebird;
+    public List<Sprite> greenbird;
+    public List<Sprite> greybird;
+    public List<Sprite> redbird;
+    public List<Sprite> greycat;
+    public List<Sprite> orangecat;
+    public List<Sprite> blackcat;
+    public List<Sprite> whitecat;
+    public List<Sprite> brownfox;
+    public List<Sprite> yellowfox;
+    public List<Sprite> greyraccoon;
+    public List<Sprite> iceblueraccoon;
+
+    private List<List<Sprite>> dogsprites2;
+    private List<List<Sprite>> birdsprites2;
+    private List<List<Sprite>> catsprites2;
+    private List<List<Sprite>> foxsprites2;
+    private List<List<Sprite>> raccoonsprites2;
     private List<List<Sprite>> rightspritelist;
-    private List<List<Sprite>> rightspritelist2;
+    private List<List<List<Sprite>>> rightspritelist2;
+
+    private int previousDropdown1Value = -1; // Placeholder blocking
 
     void Start()
     {
+        dogsprites2 = new List<List<Sprite>> { shihtzu, beagle, labrador };
+        birdsprites2 = new List<List<Sprite>> { bluebird, greenbird, greybird, redbird };
+        catsprites2 = new List<List<Sprite>> { greycat, orangecat, blackcat, whitecat };
+        foxsprites2 = new List<List<Sprite>> { brownfox, yellowfox };
+        raccoonsprites2 = new List<List<Sprite>> { greyraccoon, iceblueraccoon };
+
         rightspritelist = new List<List<Sprite>> { dogsprites, birdsprites, catsprites, foxsprites, raccoonsprites };
-        rightspritelist2 = new List<List<Sprite>> { dogsprites2, birdsprites2, catsprites2, foxsprites2, raccoonsprites2 };
-        InitializeDropdown(dropdown1, new List<string> { "Dog", "Bird", "Cat", "Fox", "Raccoon" });
+        rightspritelist2 = new List<List<List<Sprite>>> { dogsprites2, birdsprites2, catsprites2, foxsprites2, raccoonsprites2 };
+        
+        InitializeDropdown(dropdown1, new List<string> { "Select Animal", "Dog", "Bird", "Cat", "Fox", "Raccoon" });
         dropdown1.onValueChanged.AddListener(delegate { Dropdown1ValueChanged(dropdown1); });
 
-        InitializeDropdown(dropdown2, new List<string>());
-        InitializeDropdown(dropdown3, new List<string>());
+        InitializeDropdown(dropdown2, new List<string> { "Select Type" });
+        InitializeDropdown(dropdown3, new List<string> { "Select Color" });
 
         dropdown2.onValueChanged.AddListener(delegate { Dropdown2ValueChanged(dropdown2); });
         dropdown3.onValueChanged.AddListener(delegate { Dropdown3ValueChanged(dropdown3); });
+
+        // Set placeholders
+        dropdown1.value = 0;
+        dropdown2.value = 0;
+        dropdown3.value = 0;
+        Dropdown1ValueChanged(dropdown1); // Ensure the initial selection triggers the method
+
     }
 
     void InitializeDropdown(Dropdown dropdown, List<string> options)
@@ -44,7 +77,15 @@ public class SpriteChanger : MonoBehaviour
 
     void Dropdown1ValueChanged(Dropdown change)
     {
-        int index = change.value;
+        int index = change.value - 1; // Placeholder
+        if (index < 0) {
+            // Revert to the previous valid value if the placeholder is selected
+            dropdown1.value = previousDropdown1Value + 1;
+            return;
+        }
+
+        previousDropdown1Value = index; // Update the previous valid value
+
         List<string> options = new List<string>();
         foreach (var sprite in rightspritelist[index])
         {
@@ -52,7 +93,7 @@ public class SpriteChanger : MonoBehaviour
         }
         InitializeDropdown(dropdown2, options);
         
-        // Clear dropdown
+        // Clear dropdown3
         InitializeDropdown(dropdown3, new List<string>());
 
         // Update targetImage to the first sprite of the selected category
@@ -60,38 +101,54 @@ public class SpriteChanger : MonoBehaviour
         {
             targetImage.sprite = rightspritelist[index][0];
         }
+        // Update dropdown2
+        dropdown2.value = 0;
+        Dropdown2ValueChanged(dropdown2); //if same choice
     }
 
     void Dropdown2ValueChanged(Dropdown change)
     {
-        int parentIndex = dropdown1.value;
+        int parentIndex = dropdown1.value - 1; //Placeholder
+        int parent2Index = dropdown2.value;
         int index = change.value;
         List<string> options = new List<string>();
-        foreach (var sprite in rightspritelist2[parentIndex])
-        {
-            options.Add(sprite.name);
-        }
-        InitializeDropdown(dropdown3, options);
+        if (parentIndex < 0) return; // Placeholder selected, do nothing
 
-        // Update targetImage to the selected sprite
-        if (index >= 0 && index < rightspritelist[parentIndex].Count)
+        Debug.Log("parentIndex: " + parentIndex);
+        Debug.Log("parent2Index: " + parent2Index);
+        Debug.Log("currentIndex: " + index);
+
+        if (parent2Index >= 0 && parent2Index < rightspritelist2[parentIndex].Count)
         {
-            targetImage.sprite = rightspritelist[parentIndex][index];
+            foreach (var sprite in rightspritelist2[parentIndex][parent2Index])
+            {
+                options.Add(sprite.name);
+            }
+            InitializeDropdown(dropdown3, options);
+
+            // Update targetImage to the selected sprite
+            if (index >= 0 && index < rightspritelist[parentIndex].Count)
+            {
+                targetImage.sprite = rightspritelist[parentIndex][index];
+            }
+        }
+        else
+        {
+            Debug.LogWarning("parent2Index is out of bounds");
         }
     }
 
     void Dropdown3ValueChanged(Dropdown change)
     {
-        int parentIndex = dropdown1.value;
+        int parentIndex = dropdown1.value - 1; // Placeholder
+        int secParentIndex = dropdown2.value;
         int index = change.value;
+        if (parentIndex < 0) return; // Placeholder selected, do nothing
 
         // Update targetImage to the selected sprite
-        if (index >= 0 && index < rightspritelist2[parentIndex].Count)
+        if (index >= 0 && index < rightspritelist2[parentIndex][secParentIndex].Count)
         {
-            targetImage.sprite = rightspritelist2[parentIndex][index];
-            //imagimonImage.sprite = targetImage.sprite;
+            targetImage.sprite = rightspritelist2[parentIndex][secParentIndex][index];
         }
-        // Store the chosen sprite in a chosen Imagimon variable
     }
-
 }
