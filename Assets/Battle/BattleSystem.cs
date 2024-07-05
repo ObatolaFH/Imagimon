@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public enum BattleState
 {
@@ -53,6 +52,4 @@ public class BattleSystem : MonoBehaviour
 
         }
     }
-
-    
 }

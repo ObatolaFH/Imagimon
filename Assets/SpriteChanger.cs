@@ -7,13 +7,12 @@ public class SpriteChanger : MonoBehaviour
     public Dropdown dropdown1;
     public Dropdown dropdown2;
     public Dropdown dropdown3;
-    public Image targetImage;
+    
     public List<Sprite> dogsprites;
     public List<Sprite> birdsprites;
     public List<Sprite> catsprites;
     public List<Sprite> foxsprites;
     public List<Sprite> raccoonsprites;
-
     public List<Sprite> shihtzu;
     public List<Sprite> beagle;
     public List<Sprite> labrador;
@@ -29,7 +28,6 @@ public class SpriteChanger : MonoBehaviour
     public List<Sprite> yellowfox;
     public List<Sprite> greyraccoon;
     public List<Sprite> iceblueraccoon;
-
     private List<List<Sprite>> dogsprites2;
     private List<List<Sprite>> birdsprites2;
     private List<List<Sprite>> catsprites2;
@@ -39,9 +37,10 @@ public class SpriteChanger : MonoBehaviour
     private List<List<List<Sprite>>> rightspritelist2;
 
     private int previousDropdown1Value = -1; // Placeholder blocking
-
+    public Image targetImage;
     private Sprite chosenImagimonSprite;
-
+    private string imagimonName;
+    public InputField nameInputField;
 
     void Start()
     {
@@ -54,11 +53,11 @@ public class SpriteChanger : MonoBehaviour
         rightspritelist = new List<List<Sprite>> { dogsprites, birdsprites, catsprites, foxsprites, raccoonsprites };
         rightspritelist2 = new List<List<List<Sprite>>> { dogsprites2, birdsprites2, catsprites2, foxsprites2, raccoonsprites2 };
         
-        InitializeDropdown(dropdown1, new List<string> { "Select Animal", "Dog", "Bird", "Cat", "Fox", "Raccoon" });
+        InitializeDropdown(dropdown1, new List<string> { "Select Type", "Dog", "Bird", "Cat", "Fox", "Raccoon" });
         dropdown1.onValueChanged.AddListener(delegate { Dropdown1ValueChanged(dropdown1); });
 
-        InitializeDropdown(dropdown2, new List<string> { "Select Type" });
-        InitializeDropdown(dropdown3, new List<string> { "Select Color" });
+        InitializeDropdown(dropdown2, new List<string> { "Select Color" });
+        InitializeDropdown(dropdown3, new List<string> { "Select 2nd Color" });
 
         dropdown2.onValueChanged.AddListener(delegate { Dropdown2ValueChanged(dropdown2); });
         dropdown3.onValueChanged.AddListener(delegate { Dropdown3ValueChanged(dropdown3); });
@@ -70,7 +69,7 @@ public class SpriteChanger : MonoBehaviour
         chosenImagimonSprite = targetImage.sprite;
 
         Dropdown1ValueChanged(dropdown1); // Ensure the initial selection triggers the method
-
+        imagimonName = "";
     }
 
     void InitializeDropdown(Dropdown dropdown, List<string> options)
@@ -161,12 +160,30 @@ public class SpriteChanger : MonoBehaviour
         }
     }
 
-    public void SaveImage()
+    public void SaveImagimon()
     {
+        //NAME
+        imagimonName = nameInputField.text;
+        Debug.Log("Imagimon's Name is " + imagimonName);
+
+        //IMAGIMON-SPRITE
         Debug.Log("Saved ImagimonSprite: " + chosenImagimonSprite.name);
 
-        PlayerPrefs.SetString("SavedImagimonSpriteName", chosenImagimonSprite.name);
+        //ATTACKS
+        List<string> attacks = AttacksSelector.Instance.attacks;
+        string allAttacks = string.Join(", ", attacks);
+        Debug.Log("Saved ImagimonAttacks: " + allAttacks);
+        foreach (string attack in attacks)
+        {
+            Debug.Log(attack);
+        }
+        //STATS
+        List<int> stats = StatsManager.Instance.stats;
+        Debug.Log("Stats: " + string.Join(", ", stats));
+        foreach (int stat in stats)
+        {
+            Debug.Log(stat);
+        }
+        //TO DO: give SaveImagimon to ImagimonBase?
     }
-    //TO DO:
-    //give savedImage, savedAttacks,saved name, saved Stats to ImagimonBase? 
 }

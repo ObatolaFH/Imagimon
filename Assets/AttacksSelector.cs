@@ -68,7 +68,7 @@ public class AttacksSelector : MonoBehaviour
     /*
     // In order to access the attacks list from another script:
     
-        List<string> attacks = AttackManager.Instance.attacks;
+        List<string> attacks = AttacksSelector.Instance.attacks;
 
         // Example usage: Print all attacks
         foreach (string attack in attacks)
