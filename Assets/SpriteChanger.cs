@@ -42,6 +42,8 @@ public class SpriteChanger : MonoBehaviour
     private string imagimonName;
     public InputField nameInputField;
 
+    public SaveManager saveManager;
+
     void Start()
     {
         dogsprites2 = new List<List<Sprite>> { shihtzu, beagle, labrador };
@@ -70,6 +72,8 @@ public class SpriteChanger : MonoBehaviour
 
         Dropdown1ValueChanged(dropdown1); // Ensure the initial selection triggers the method
         imagimonName = "";
+
+        saveManager = gameObject.AddComponent<SaveManager>();
     }
 
     void InitializeDropdown(Dropdown dropdown, List<string> options)
@@ -185,5 +189,15 @@ public class SpriteChanger : MonoBehaviour
             Debug.Log(stat);
         }
         //TO DO: give SaveImagimon to ImagimonBase?
+
+        ImagimonData newImagimon = new ImagimonData(
+            imagimonName,
+            chosenImagimonSprite,
+            stats,
+            attacks
+        );
+
+        List<ImagimonData> imagimonList = new List<ImagimonData> { newImagimon };
+        saveManager.SaveImagimonData(imagimonList);
     }
 }

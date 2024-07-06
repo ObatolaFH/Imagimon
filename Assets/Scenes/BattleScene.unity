@@ -1753,9 +1753,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58f19138c3e48443bce31a58552c261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: []
   _base: {fileID: 11400000, guid: 283a17e328acd3c4b80608647d422f0b, type: 2}
   level: 1
-  isPlayerUnit: 0
+  isPlayerUnit: 1
 --- !u!1 &561889030
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,6 +2655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58f19138c3e48443bce31a58552c261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: []
   _base: {fileID: 11400000, guid: f492040848acd0a4eb08ce21011feee3, type: 2}
   level: 1
   isPlayerUnit: 0
