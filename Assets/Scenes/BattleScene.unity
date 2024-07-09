@@ -1753,7 +1753,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58f19138c3e48443bce31a58552c261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: []
   _base: {fileID: 11400000, guid: 283a17e328acd3c4b80608647d422f0b, type: 2}
   level: 1
   isPlayerUnit: 1
@@ -2655,7 +2654,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58f19138c3e48443bce31a58552c261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: []
   _base: {fileID: 11400000, guid: f492040848acd0a4eb08ce21011feee3, type: 2}
   level: 1
   isPlayerUnit: 0
@@ -3325,6 +3323,10 @@ MonoBehaviour:
   playerHud: {fileID: 856749703}
   enemyHud: {fileID: 1186986092}
   dialogBox: {fileID: 198169538}
+  attack1Button: {fileID: 906539488}
+  attack2Button: {fileID: 151947236}
+  attack3Button: {fileID: 900354266}
+  attack4Button: {fileID: 321262049}
 --- !u!1 &1748130809
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,10 @@ public class BattleUnit : MonoBehaviour
 
     public void Start()
     {
-        LoadImagimonData();
+        if (isPlayerUnit)
+        {
+            LoadImagimonData();
+        }
     }
 
     public void Setup()
