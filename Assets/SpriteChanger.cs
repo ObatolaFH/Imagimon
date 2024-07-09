@@ -7,7 +7,7 @@ public class SpriteChanger : MonoBehaviour
     public Dropdown dropdown1;
     public Dropdown dropdown2;
     public Dropdown dropdown3;
-    
+
     public List<Sprite> dogsprites;
     public List<Sprite> birdsprites;
     public List<Sprite> catsprites;
@@ -33,8 +33,8 @@ public class SpriteChanger : MonoBehaviour
     private List<List<Sprite>> catsprites2;
     private List<List<Sprite>> foxsprites2;
     private List<List<Sprite>> raccoonsprites2;
-    private List<List<Sprite>> rightspritelist;
     private List<List<List<Sprite>>> rightspritelist2;
+    private List<List<Sprite>> rightspritelist;
 
     private int previousDropdown1Value = -1; // Placeholder blocking
     public Image targetImage;
@@ -42,7 +42,16 @@ public class SpriteChanger : MonoBehaviour
     private string imagimonName;
     public InputField nameInputField;
 
+    public Button saveButton; // Reference to the Save button
+    public Button removeButton; // Reference to the Remove button
+    public Text fullTeamMessage; // Reference to the Text component to show full team message
+    public GameObject removePanel; // UI panel for removal
+    public Dropdown removeDropdown; // Dropdown to select Imagimon for removal
+
     public SaveManager saveManager;
+
+    // Imagimon list to store saved imagimons
+    private List<ImagimonData> imagimonList;
 
     void Start()
     {
@@ -54,7 +63,7 @@ public class SpriteChanger : MonoBehaviour
 
         rightspritelist = new List<List<Sprite>> { dogsprites, birdsprites, catsprites, foxsprites, raccoonsprites };
         rightspritelist2 = new List<List<List<Sprite>>> { dogsprites2, birdsprites2, catsprites2, foxsprites2, raccoonsprites2 };
-        
+
         InitializeDropdown(dropdown1, new List<string> { "Select Type", "Dog", "Bird", "Cat", "Fox", "Raccoon" });
         dropdown1.onValueChanged.AddListener(delegate { Dropdown1ValueChanged(dropdown1); });
 
@@ -74,6 +83,16 @@ public class SpriteChanger : MonoBehaviour
         imagimonName = "";
 
         saveManager = gameObject.AddComponent<SaveManager>();
+
+        // Load the imagimon list from the file
+        imagimonList = saveManager.LoadImagimonData();
+
+        // Check the imagimon count and update the save button status
+        UpdateSaveButtonStatus();
+
+        // Assign the remove button click event
+        //removeButton.onClick.AddListener();
+
     }
 
     void InitializeDropdown(Dropdown dropdown, List<string> options)
@@ -108,7 +127,6 @@ public class SpriteChanger : MonoBehaviour
         {
             targetImage.sprite = rightspritelist[index][0];
             chosenImagimonSprite = targetImage.sprite;
-
         }
         // Update dropdown2
         dropdown2.value = 0;
@@ -140,7 +158,6 @@ public class SpriteChanger : MonoBehaviour
             {
                 targetImage.sprite = rightspritelist[parentIndex][index];
                 chosenImagimonSprite = targetImage.sprite;
-
             }
         }
         else
@@ -197,7 +214,54 @@ public class SpriteChanger : MonoBehaviour
             attacks
         );
 
-        List<ImagimonData> imagimonList = new List<ImagimonData> { newImagimon };
+        // Add newImagimon to the list instead of creating a new list
+        imagimonList.Add(newImagimon);
         saveManager.SaveImagimonData(imagimonList);
+
+        // Check the imagimon count and update the save button status
+        UpdateSaveButtonStatus();
+    }
+
+    private void UpdateSaveButtonStatus()
+    {
+        // Disable the save button if there are 5 or more imagimons
+        if (imagimonList.Count >= 5)
+        {
+            saveButton.interactable = false;
+            fullTeamMessage.gameObject.SetActive(true); // Show the full team message
+            OpenRemovePanel();
+            Debug.Log("Imagimon list is full. Save button disabled.");
+        }
+        else
+        {
+            saveButton.interactable = true;
+            fullTeamMessage.gameObject.SetActive(false); // Hide the full team message
+            removePanel.SetActive(false);
+        }
+    }
+
+    private void OpenRemovePanel()
+    {
+        // Populate the remove dropdown with imagimon names
+        List<string> options = new List<string>();
+        foreach (var imagimon in imagimonList)
+        {
+            options.Add(imagimon.imagimonName);
+        }
+        removePanel.SetActive(true); // Show the remove panel
+        InitializeDropdown(removeDropdown, options);
+    }
+
+    public void RemoveImagimon()
+    {
+        int index = removeDropdown.value;
+        if (index >= 0 && index < imagimonList.Count)
+        {
+            imagimonList.RemoveAt(index);
+            saveManager.SaveImagimonData(imagimonList);
+            UpdateSaveButtonStatus();
+            //removePanel.SetActive(false); // Hide the remove panel
+            Debug.Log("Removed Imagimon at index " + index);
+        }
     }
 }
