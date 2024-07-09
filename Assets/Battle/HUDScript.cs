@@ -20,8 +20,8 @@ public class HUDScript : MonoBehaviour
         hpBar.SetHP((float)imagimon.HP / imagimon.MaxHP);
     }
 
-    public void UpdateHP()
+    public IEnumerator UpdateHP()
     {
-        hpBar.SetHP((float)_imagimon.HP / _imagimon.MaxHP);
+        yield return hpBar.SetHPSmooth((float)_imagimon.HP / _imagimon.MaxHP);
     }
 }
