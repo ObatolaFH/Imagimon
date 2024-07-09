@@ -191,7 +191,7 @@ public class SpriteChanger : MonoBehaviour
         Debug.Log("Saved ImagimonSprite: " + chosenImagimonSprite.name);
 
         //ATTACKS
-        List<string> attacks = AttacksSelector.Instance.attacks;
+        List<string> attacks = new List<string>(AttacksSelector.Instance.attacks);
         string allAttacks = string.Join(", ", attacks);
         Debug.Log("Saved ImagimonAttacks: " + allAttacks);
         foreach (string attack in attacks)
@@ -199,7 +199,7 @@ public class SpriteChanger : MonoBehaviour
             Debug.Log(attack);
         }
         //STATS
-        List<int> stats = StatsManager.Instance.stats;
+        List<int> stats = new List<int>(StatsManager.Instance.stats);
         Debug.Log("Stats: " + string.Join(", ", stats));
         foreach (int stat in stats)
         {

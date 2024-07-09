@@ -27,6 +27,8 @@ public class BattleUnit : MonoBehaviour
     public void Setup()
     {
         Imagimon = new Imagimon(_base, level);
+        Debug.Log($"Setting up {Imagimon.Base.Name} with level {level}");
+
         if (isPlayerUnit)
         {
             GetComponent<Image>().sprite = Imagimon.Base.BackSprite;
@@ -39,57 +41,64 @@ public class BattleUnit : MonoBehaviour
 
     public void LoadImagimonData()
     {
-        List<ImagimonData> imagimonList = SaveManager.Instance.LoadImagimonData();
-
-        for (int j = 0; j < imagimonList.Count; j++)
+        if(isPlayerUnit)
         {
-            List<LearnableMove> chosenMoves = new List<LearnableMove>();
+            List<ImagimonData> imagimonList = SaveManager.Instance.LoadImagimonData();
 
-            for (int i = 0; i < 4; i++)
+            for (int j = 0; j < imagimonList.Count; j++)
             {
-                chosenMoves.Add(new LearnableMove(new MoveBase(imagimonList[j].attacks[i]), 1));
-                //chosenMoves.Add(new Move(new MoveBase(imagimonList[0].attacks[i]), 10));
+                List<LearnableMove> chosenMoves = new List<LearnableMove>();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    chosenMoves.Add(new LearnableMove(new MoveBase(imagimonList[j].attacks[i]), 1));
+                    //chosenMoves.Add(new Move(new MoveBase(imagimonList[0].attacks[i]), 10));
+                }
+
+
+                /*
+                List<LearnableMove> chosenMoves = [Move(MoveBase(imagimonList[0].attacks[0]), 10),
+                    Move(MoveBase(imagimonList[0].attacks[1]), 10),
+                    Move(MoveBase(imagimonList[0].attacks[2]), 10),
+                    Move(MoveBase(imagimonList[0].attacks[3]), 10)];
+                */
+
+                if (imagimonList.Count > 0)
+                {
+                    ImagimonData data = imagimonList[j];
+                    Sprite sprite = data.BytesToSprite();
+
+                    ImagimonBase temp = ScriptableObject.CreateInstance<ImagimonBase>();
+
+                    //teamBase[j] = ScriptableObject.CreateInstance<ImagimonBase>();
+                    temp.Initialize(
+                        data.imagimonName,
+                        sprite,
+                        sprite,
+                        ImagimonType.Normal,
+                        100, // maxHP
+                        data.stats[0], // attack
+                        data.stats[1], // defence
+                        data.stats[3], // spAttack
+                        data.stats[4], // spDefence
+                        data.stats[2],  // initiative
+                        chosenMoves
+                    );
+
+                    teamBase.Add(temp);
+
+                    Debug.Log("Imagimon Name: " + data.imagimonName);
+                    Debug.Log("Imagimon Stats: " + string.Join(", ", data.stats));
+                    Debug.Log("Imagimon Attacks: " + string.Join(", ", data.attacks));
+                }
+
             }
-
-
-            /*
-            List<LearnableMove> chosenMoves = [Move(MoveBase(imagimonList[0].attacks[0]), 10),
-                Move(MoveBase(imagimonList[0].attacks[1]), 10),
-                Move(MoveBase(imagimonList[0].attacks[2]), 10),
-                Move(MoveBase(imagimonList[0].attacks[3]), 10)];
-            */
-
-            if (imagimonList.Count > 0)
-            {
-                ImagimonData data = imagimonList[j];
-                Sprite sprite = data.BytesToSprite();
-
-                ImagimonBase temp = ScriptableObject.CreateInstance<ImagimonBase>();
-
-                //teamBase[j] = ScriptableObject.CreateInstance<ImagimonBase>();
-                temp.Initialize(
-                    data.imagimonName,
-                    sprite,
-                    sprite,
-                    ImagimonType.Normal,
-                    100, // maxHP
-                    data.stats[0], // attack
-                    data.stats[1], // defence
-                    data.stats[3], // spAttack
-                    data.stats[4], // spDefence
-                    data.stats[2],  // initiative
-                    chosenMoves
-                );
-
-                teamBase.Add(temp);
-
-                Debug.Log("Imagimon Name: " + data.imagimonName);
-                Debug.Log("Imagimon Stats: " + string.Join(", ", data.stats));
-                Debug.Log("Imagimon Attacks: " + string.Join(", ", data.attacks));
-            }
-
+            _base = teamBase[0];
         }
-        _base = teamBase[0];
+        else
+        {
+            _base = enemyTeamBase[0];
+        }
     }
 
     public ImagimonBase _Base
@@ -105,6 +114,14 @@ public class BattleUnit : MonoBehaviour
 
     public void ChangeImagimon(int index)
     {
-        _base = teamBase[index];
+        
+        if(isPlayerUnit)
+        {
+            _base = teamBase[index];
+        }
+        else
+        {
+            _base = enemyTeamBase[index];
+        }
     }
 }

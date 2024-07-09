@@ -1754,6 +1754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamBase: []
+  enemyTeamBase: []
   _base: {fileID: 11400000, guid: 283a17e328acd3c4b80608647d422f0b, type: 2}
   level: 1
   isPlayerUnit: 1
@@ -2656,6 +2657,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamBase: []
+  enemyTeamBase:
+  - {fileID: 11400000, guid: 283a17e328acd3c4b80608647d422f0b, type: 2}
+  - {fileID: 11400000, guid: 49c09c636e9f5784d8f6a0852f383e52, type: 2}
+  - {fileID: 11400000, guid: 75ea154a6070a484a9a6aa3c708cc942, type: 2}
+  - {fileID: 11400000, guid: 7a0977d11fb847c4090b216d39c7090f, type: 2}
+  - {fileID: 11400000, guid: f492040848acd0a4eb08ce21011feee3, type: 2}
+  - {fileID: 11400000, guid: 47cbda9ac34708340857a052e6f40994, type: 2}
+  - {fileID: 11400000, guid: 09a60009d89083e4ba80afc5189321e7, type: 2}
+  - {fileID: 11400000, guid: 7b227df7ad051234e9a8a30687f853f3, type: 2}
+  - {fileID: 11400000, guid: f6d681103d59b134088b66c6e711ffe7, type: 2}
+  - {fileID: 11400000, guid: e17b62a78c2b8304eafe2e76531680ac, type: 2}
   _base: {fileID: 11400000, guid: f492040848acd0a4eb08ce21011feee3, type: 2}
   level: 1
   isPlayerUnit: 0

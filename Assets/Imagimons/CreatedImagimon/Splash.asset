@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ac352ae90cf5444aa5cc602f6a5ac0c, type: 3}
-  m_Name: Luke
+  m_Name: Splash
   m_EditorClassIdentifier: 
-  name: Luke
-  frontSprite: {fileID: 21300000, guid: 349799ee6700e4da89437dcabb5e549b, type: 3}
-  backSprite: {fileID: 21300000, guid: b56dc8365524a4ad2b5701a33e287192, type: 3}
+  name: Splash
+  frontSprite: {fileID: 21300000, guid: 82dba3f4486fc47fba4f0e34f228526c, type: 3}
+  backSprite: {fileID: 21300000, guid: 82dba3f4486fc47fba4f0e34f228526c, type: 3}
   type: 0
-  maxHP: 20
-  attack: 20
-  defence: 20
-  spAttack: 20
-  spDefence: 20
-  initiative: 20
+  maxHP: 100
+  attack: 10
+  defence: 25
+  spAttack: 10
+  spDefence: 50
+  initiative: 5
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: e350df08b14597448aeade43870df635, type: 2}
-    level: 1
   - moveBase: {fileID: 11400000, guid: 57ba50fc3017c3b4fa57b667d0eb7c48, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: 26c77b7445ce08444aa294081df626bd, type: 2}
-    level: 1
   - moveBase: {fileID: 11400000, guid: b492f03c6da198a4091be7538bade5a2, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 4aa49a6fa8de33b47a1b7de9bdff7d43, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: e350df08b14597448aeade43870df635, type: 2}
     level: 1
