@@ -215,6 +215,11 @@ public class SpriteChanger : MonoBehaviour
         );
 
         // Add newImagimon to the list instead of creating a new list
+        if(imagimonList == null) 
+        {
+            imagimonList = new List<ImagimonData> { newImagimon };
+        }
+        
         imagimonList.Add(newImagimon);
         saveManager.SaveImagimonData(imagimonList);
 
