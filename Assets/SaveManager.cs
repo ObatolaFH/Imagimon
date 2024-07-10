@@ -2,57 +2,115 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour
+namespace ImagimonTheGame
 {
-    public static SaveManager Instance { get; private set; }
-    private const string filePath = "/imagimonData.json";
-
-    private void Awake()
+    public class SaveManager : MonoBehaviour
     {
-        if (Instance == null)
+        private static SaveManager instance;
+        public static SaveManager Instance
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // Ensure this instance persists across scenes
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<SaveManager>();
+                    if (instance == null)
+                    {
+                        GameObject go = new GameObject("SaveManager");
+                        instance = go.AddComponent<SaveManager>();
+                    }
+                    DontDestroyOnLoad(instance.gameObject);
+                }
+                return instance;
+            }
         }
-        else
+
+        private const string filePath = "/imagimonData.json";
+        private int playerXP;
+        private const string xpKey = "PlayerXP";
+
+        private void Awake()
         {
-            Destroy(gameObject); // Destroy duplicate instances
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else if (instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        public void SaveImagimonData(List<ImagimonData> imagimonList)
+        {
+            if (imagimonList.Count > 5)
+            {
+                imagimonList = imagimonList.GetRange(0, 5); // Ensure only 5 Imagimon are saved
+            }
+
+            SaveData data = new SaveData
+            {
+                imagimonList = imagimonList,
+                playerXP = GetPlayerXP(),
+            };
+                            Debug.Log("playerrrrrrrr" + GetPlayerXP());
+
+
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(Application.persistentDataPath + filePath, json);
+            Debug.Log("Imagimon data saved to " + Application.persistentDataPath + filePath);
+        }
+
+        public List<ImagimonData> LoadImagimonData()
+        {
+            string fullPath = Application.persistentDataPath + filePath;
+            if (File.Exists(fullPath))
+            {
+                string json = File.ReadAllText(fullPath);
+                SaveData data = JsonUtility.FromJson<SaveData>(json);
+                SetPlayerXP(data.playerXP);
+                return data.imagimonList;
+            }
+
+            return new List<ImagimonData>();
+        }
+
+        public int GetPlayerXP()
+        {
+            
+            string numberString = string.Format("{0}", playerXP);
+            Debug.Log(PlayerPrefs.GetInt(numberString));
+            return PlayerPrefs.GetInt(xpKey, playerXP);
+        }
+
+        public void SetPlayerXP(int xp)
+        {
+            playerXP = xp;
+            Debug.Log("XXXXP" + xp);
+            PlayerPrefs.SetInt(xpKey, xp);
+            PlayerPrefs.Save();
+        }
+        
+        public void AddPlayerXP(int xpToAdd)
+        {
+            int currentXP = GetPlayerXP();
+            SetPlayerXP(currentXP + xpToAdd);
+            Debug.Log("Player XXXXXP Updated: " + GetPlayerXP());
+        }
+        public int SavePlayerXP(int xp)
+        {
+            int currentXP = SaveManager.Instance.playerXP;
+            currentXP += xp;
+                SetPlayerXP(playerXP);
+                return playerXP;
         }
     }
 
-    public void SaveImagimonData(List<ImagimonData> imagimonList)
+    [System.Serializable]
+    public class SaveData
     {
-        if (imagimonList.Count > 5)
-        {
-            imagimonList = imagimonList.GetRange(0, 5); // Ensure only 5 Imagimon are saved
-        }
-
-        string json = JsonUtility.ToJson(new ImagimonDataWrapper(imagimonList), true);
-        File.WriteAllText(Application.persistentDataPath + filePath, json);
-        Debug.Log("Imagimon data saved to " + Application.persistentDataPath + filePath);
-    }
-
-    public List<ImagimonData> LoadImagimonData()
-    {
-        string fullPath = Application.persistentDataPath + filePath;
-        if (File.Exists(fullPath))
-        {
-            string json = File.ReadAllText(fullPath);
-            ImagimonDataWrapper wrapper = JsonUtility.FromJson<ImagimonDataWrapper>(json);
-            return wrapper.imagimonList;
-        }
-
-        return new List<ImagimonData>();
-    }
-}
-
-[System.Serializable]
-public class ImagimonDataWrapper
-{
-    public List<ImagimonData> imagimonList;
-
-    public ImagimonDataWrapper(List<ImagimonData> imagimonList)
-    {
-        this.imagimonList = imagimonList;
+        public List<ImagimonData> imagimonList;
+        public int playerXP;
     }
 }

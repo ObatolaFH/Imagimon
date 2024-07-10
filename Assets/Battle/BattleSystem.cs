@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public enum BattleState
 {
     Start, PlayerMove, EnemyMove, Busy
 }
-
+namespace ImagimonTheGame {
 public class BattleSystem : MonoBehaviour
 {
     [SerializeField] BattleUnit playerUnit;
@@ -22,6 +21,9 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] Button attack3Button;
     [SerializeField] Button attack4Button;
     [SerializeField] Button switchButton;
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] Text gameOver;
+
 
     private int[] playerLives = { 100, 100, 100, 100, 100 };
     private int[] enemyLives = { 100, 100, 100, 100, 100 };
@@ -29,15 +31,25 @@ public class BattleSystem : MonoBehaviour
 
     private int currentImagimonIndex = 0;
     private int enemyImagimonIndex = 0;
+    public ScoreDisplay scoreDisplay; // Reference to the ScoreDisplay script
+
 
     int attackChoice;
 
     BattleState state;
 
+    
 
     private void Start()
     {
+        scoreDisplay = FindObjectOfType<ScoreDisplay>();
+        if (ScoreManager.Instance == null)
+            {
+                Debug.LogError("ScoreManager instance is not found!");
+            }
         StartCoroutine(SetupBattle());
+        
+        
 
     }
 
@@ -47,6 +59,7 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.Setup();
         playerHud.SetData(playerUnit.Imagimon);
         enemyHud.SetData(enemyUnit.Imagimon);
+        gameOverPanel.SetActive(false);
 
         dialogBox.SetMoveNames(playerUnit.Imagimon.Moves);
 
@@ -76,8 +89,6 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("slow");
             StartCoroutine(EnemyMove());
         }
-
-        
     }
 
     IEnumerator PerformPlayerMove()
@@ -132,6 +143,22 @@ public class BattleSystem : MonoBehaviour
         dialogBox.SetMoveNames(playerUnit.Imagimon.Moves);
         state = BattleState.PlayerMove;
         StartCoroutine(dialogBox.SetDialog($"Choose an attack:"));
+         /*if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.Score += 10;
+            }
+            else
+            {
+                Debug.LogError("ScoreManager instance is not valid!");
+            }
+         if (scoreDisplay != null)
+            {
+                scoreDisplay.UpdateScoreText();
+            }
+            else
+            {
+                Debug.LogError("ScoreDisplay is not assigned!");
+            }*/
 
 
         attack1Button.onClick.AddListener(() => OnAttackButtonPressed(0));
@@ -300,8 +327,32 @@ public class BattleSystem : MonoBehaviour
         if (enemyLives[0] + enemyLives[1] + enemyLives[2] + enemyLives[3] + enemyLives[4] == 0)
         {
             yield return dialogBox.SetDialog($"You won");
+            SaveManager.Instance.AddPlayerXP(10);
+            Debug.Log("Player won the battle! 10 XP added.");
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.Score += 10;
+            }
+            else
+            {
+                Debug.LogError("ScoreManager instance is not valid!");
+            }
+         if (scoreDisplay != null)
+            {
+                scoreDisplay.UpdateScoreText();
+            }
+            else
+            {
+                Debug.LogError("ScoreDisplay is not assigned!");
+            }
+            
+            
+            //gameOverPanel.SetActive(true);
+            //gameOver.gameObject.SetActive(true);
             yield return new WaitForSeconds(1f);
             yield return null; ;
+            //gameOver.gameObject.SetActive(false);
+            //gameOverPanel.SetActive(false);
         }
 
         for (int i = 0; i < 10; i++)
@@ -356,4 +407,5 @@ public class BattleSystem : MonoBehaviour
         }
         */
     }
+}
 }

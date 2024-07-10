@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace ImagimonTheGame
+{
 public class StatsManager : MonoBehaviour
 {
     public static StatsManager Instance { get; private set; }
@@ -13,6 +15,8 @@ public class StatsManager : MonoBehaviour
     public Slider specialDefenseSlider;
 
     private List<Slider> sliders;
+    private SaveManager saveManager;
+
 
     public List<int> stats = new List<int>();
 
@@ -92,4 +96,5 @@ public class StatsManager : MonoBehaviour
         }
         */
 
+}
 }

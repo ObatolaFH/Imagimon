@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+namespace ImagimonTheGame
+{
 public class HUDScript : MonoBehaviour
 {
     [SerializeField] TMP_Text nameText;
@@ -24,4 +26,5 @@ public class HUDScript : MonoBehaviour
     {
         yield return hpBar.SetHPSmooth((float)_imagimon.HP / _imagimon.MaxHP);
     }
+}
 }

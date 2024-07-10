@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+namespace ImagimonTheGame
+{
 public class GameController : MonoBehaviour
 {
     public GameObject playerImagimon;
@@ -121,4 +123,5 @@ public class GameController : MonoBehaviour
         playerDied = true;
         StopGame();
     }
+}
 }

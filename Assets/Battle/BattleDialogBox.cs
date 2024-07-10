@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+namespace ImagimonTheGame
+{
 public class BattleDialogBox : MonoBehaviour
 {
     //[SerializeField] int lettersPerSecond;
@@ -66,4 +68,5 @@ public class BattleDialogBox : MonoBehaviour
     }
     */
 
+}
 }

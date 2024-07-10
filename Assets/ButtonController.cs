@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+namespace ImagimonTheGame
+{
 public class ButtonController : MonoBehaviour
 {
     void Start()
@@ -26,6 +28,7 @@ public class ButtonController : MonoBehaviour
     {
         SceneManager.LoadScene("MenuScene");
     }
+}
 }
 
 

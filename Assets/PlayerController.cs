@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace ImagimonTheGame
+{
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
@@ -46,4 +48,5 @@ public class PlayerController : MonoBehaviour
 
         isMoving = false;
     }
+}
 }

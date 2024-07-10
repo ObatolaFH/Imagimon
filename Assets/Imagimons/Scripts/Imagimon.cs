@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace ImagimonTheGame
+{
 public class Imagimon
 {
     public ImagimonBase Base { get; set; }
@@ -80,4 +82,5 @@ public class Imagimon
         int r = Random.Range(0, Moves.Count);
         return Moves[r];
     }
+}
 }

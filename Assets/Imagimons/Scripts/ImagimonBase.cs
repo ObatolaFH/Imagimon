@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace ImagimonTheGame
+{
 [CreateAssetMenu(fileName = "Imagimon", menuName = "Imagimon/Create new Imagimon")]
 public class ImagimonBase : ScriptableObject
 {
@@ -136,5 +138,6 @@ public enum ImagimonType
     Fire,
     Water
 
+}
 }
 

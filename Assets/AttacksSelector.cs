@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+namespace ImagimonTheGame
+{
 public class AttacksSelector : MonoBehaviour
 {
     public static AttacksSelector Instance { get; private set; }
@@ -10,6 +12,8 @@ public class AttacksSelector : MonoBehaviour
     public List<string> attacks = new List<string>();
     public int maxSelections = 4;
     private int currentSelections = 0;
+    private SaveManager saveManager;
+
 
     private Dictionary<string, bool> toggleStates = new Dictionary<string, bool>();
      
@@ -76,4 +80,5 @@ public class AttacksSelector : MonoBehaviour
             Debug.Log(attack);
         }
         */
+}
 }

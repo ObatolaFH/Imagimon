@@ -2,237 +2,245 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpriteChanger : MonoBehaviour
+namespace ImagimonTheGame
 {
-    public Dropdown dropdown1;
-    public Dropdown dropdown2;
-    public Dropdown dropdown3;
-
-    public List<Sprite> dogsprites;
-    public List<Sprite> birdsprites;
-    public List<Sprite> catsprites;
-    public List<Sprite> foxsprites;
-    public List<Sprite> raccoonsprites;
-    public List<Sprite> shihtzu;
-    public List<Sprite> beagle;
-    public List<Sprite> labrador;
-    public List<Sprite> bluebird;
-    public List<Sprite> greenbird;
-    public List<Sprite> greybird;
-    public List<Sprite> redbird;
-    public List<Sprite> greycat;
-    public List<Sprite> orangecat;
-    public List<Sprite> blackcat;
-    public List<Sprite> whitecat;
-    public List<Sprite> brownfox;
-    public List<Sprite> yellowfox;
-    public List<Sprite> greyraccoon;
-    public List<Sprite> iceblueraccoon;
-    private List<List<Sprite>> dogsprites2;
-    private List<List<Sprite>> birdsprites2;
-    private List<List<Sprite>> catsprites2;
-    private List<List<Sprite>> foxsprites2;
-    private List<List<Sprite>> raccoonsprites2;
-    private List<List<List<Sprite>>> rightspritelist2;
-    private List<List<Sprite>> rightspritelist;
-
-    private int previousDropdown1Value = -1; // Placeholder blocking
-    public Image targetImage;
-    private Sprite chosenImagimonSprite;
-    private string imagimonName;
-    public InputField nameInputField;
-
-    public Button saveButton; // Reference to the Save button
-    public Button removeButton; // Reference to the Remove button
-    public Text fullTeamMessage; // Reference to the Text component to show full team message
-    public GameObject removePanel; // UI panel for removal
-    public Dropdown removeDropdown; // Dropdown to select Imagimon for removal
-
-    public SaveManager saveManager;
-
-    // Imagimon list to store saved imagimons
-    private List<ImagimonData> imagimonList;
-
-    void Start()
+    public class SpriteChanger : MonoBehaviour
     {
-        dogsprites2 = new List<List<Sprite>> { shihtzu, beagle, labrador };
-        birdsprites2 = new List<List<Sprite>> { bluebird, greenbird, greybird, redbird };
-        catsprites2 = new List<List<Sprite>> { greycat, orangecat, blackcat, whitecat };
-        foxsprites2 = new List<List<Sprite>> { brownfox, yellowfox };
-        raccoonsprites2 = new List<List<Sprite>> { greyraccoon, iceblueraccoon };
+        public Dropdown dropdown1;
+        public Dropdown dropdown2;
+        public Dropdown dropdown3;
 
-        rightspritelist = new List<List<Sprite>> { dogsprites, birdsprites, catsprites, foxsprites, raccoonsprites };
-        rightspritelist2 = new List<List<List<Sprite>>> { dogsprites2, birdsprites2, catsprites2, foxsprites2, raccoonsprites2 };
+        public List<Sprite> dogsprites;
+        public List<Sprite> birdsprites;
+        public List<Sprite> catsprites;
+        public List<Sprite> foxsprites;
+        public List<Sprite> raccoonsprites;
+        public List<Sprite> shihtzu;
+        public List<Sprite> beagle;
+        public List<Sprite> labrador;
+        public List<Sprite> bluebird;
+        public List<Sprite> greenbird;
+        public List<Sprite> greybird;
+        public List<Sprite> redbird;
+        public List<Sprite> greycat;
+        public List<Sprite> orangecat;
+        public List<Sprite> blackcat;
+        public List<Sprite> whitecat;
+        public List<Sprite> brownfox;
+        public List<Sprite> yellowfox;
+        public List<Sprite> greyraccoon;
+        public List<Sprite> iceblueraccoon;
+        private List<List<Sprite>> dogsprites2;
+        private List<List<Sprite>> birdsprites2;
+        private List<List<Sprite>> catsprites2;
+        private List<List<Sprite>> foxsprites2;
+        private List<List<Sprite>> raccoonsprites2;
+        private List<List<List<Sprite>>> rightspritelist2;
+        private List<List<Sprite>> rightspritelist;
 
-        InitializeDropdown(dropdown1, new List<string> { "Select Type", "Dog", "Bird", "Cat", "Fox", "Raccoon" });
-        dropdown1.onValueChanged.AddListener(delegate { Dropdown1ValueChanged(dropdown1); });
+        private int previousDropdown1Value = -1; // Placeholder blocking
+        public Image targetImage;
+        private Sprite chosenImagimonSprite;
+        private string imagimonName;
+        public InputField nameInputField;
 
-        InitializeDropdown(dropdown2, new List<string> { "Select Color" });
-        InitializeDropdown(dropdown3, new List<string> { "Select 2nd Color" });
+        public Button saveButton; // Reference to the Save button
+        public Button removeButton; // Reference to the Remove button
+        public Text fullTeamMessage; // Reference to the Text component to show full team message
+        public GameObject removePanel; // UI panel for removal
+        public Dropdown removeDropdown; // Dropdown to select Imagimon for removal
 
-        dropdown2.onValueChanged.AddListener(delegate { Dropdown2ValueChanged(dropdown2); });
-        dropdown3.onValueChanged.AddListener(delegate { Dropdown3ValueChanged(dropdown3); });
+        private SaveManager saveManager;
 
-        // Set placeholders
-        dropdown1.value = 0;
-        dropdown2.value = 0;
-        dropdown3.value = 0;
-        chosenImagimonSprite = targetImage.sprite;
+        // Imagimon list to store saved imagimons
+        private List<ImagimonData> imagimonList;
 
-        Dropdown1ValueChanged(dropdown1); // Ensure the initial selection triggers the method
-        imagimonName = "";
-
-        saveManager = gameObject.AddComponent<SaveManager>();
-
-        // Load the imagimon list from the file
-        imagimonList = saveManager.LoadImagimonData();
-
-        // Check the imagimon count and update the save button status
-        UpdateSaveButtonStatus();
-
-        // Assign the remove button click event
-        //removeButton.onClick.AddListener();
-
-    }
-
-    void InitializeDropdown(Dropdown dropdown, List<string> options)
-    {
-        dropdown.ClearOptions();
-        dropdown.AddOptions(options);
-    }
-
-    void Dropdown1ValueChanged(Dropdown change)
-    {
-        int index = change.value - 1; // Placeholder
-        if (index < 0) {
-            // Revert to the previous valid value if the placeholder is selected
-            dropdown1.value = previousDropdown1Value + 1;
-            return;
-        }
-
-        previousDropdown1Value = index; // Update the previous valid value
-
-        List<string> options = new List<string>();
-        foreach (var sprite in rightspritelist[index])
+        void Start()
         {
-            options.Add(sprite.name);
-        }
-        InitializeDropdown(dropdown2, options);
-        
-        // Clear dropdown3
-        InitializeDropdown(dropdown3, new List<string>());
+            dogsprites2 = new List<List<Sprite>> { shihtzu, beagle, labrador };
+            birdsprites2 = new List<List<Sprite>> { bluebird, greenbird, greybird, redbird };
+            catsprites2 = new List<List<Sprite>> { greycat, orangecat, blackcat, whitecat };
+            foxsprites2 = new List<List<Sprite>> { brownfox, yellowfox };
+            raccoonsprites2 = new List<List<Sprite>> { greyraccoon, iceblueraccoon };
 
-        // Update targetImage to the first sprite of the selected category
-        if (rightspritelist[index].Count > 0)
-        {
-            targetImage.sprite = rightspritelist[index][0];
+            rightspritelist = new List<List<Sprite>> { dogsprites, birdsprites, catsprites, foxsprites, raccoonsprites };
+            rightspritelist2 = new List<List<List<Sprite>>> { dogsprites2, birdsprites2, catsprites2, foxsprites2, raccoonsprites2 };
+
+            InitializeDropdown(dropdown1, new List<string> { "Select Type", "Dog", "Bird", "Cat", "Fox", "Raccoon" });
+            dropdown1.onValueChanged.AddListener(delegate { Dropdown1ValueChanged(dropdown1); });
+
+            InitializeDropdown(dropdown2, new List<string> { "Select Color" });
+            InitializeDropdown(dropdown3, new List<string> { "Select 2nd Color" });
+
+            dropdown2.onValueChanged.AddListener(delegate { Dropdown2ValueChanged(dropdown2); });
+            dropdown3.onValueChanged.AddListener(delegate { Dropdown3ValueChanged(dropdown3); });
+
+            // Set placeholders
+            dropdown1.value = 0;
+            dropdown2.value = 0;
+            dropdown3.value = 0;
             chosenImagimonSprite = targetImage.sprite;
+
+            Dropdown1ValueChanged(dropdown1); // Ensure the initial selection triggers the method
+            imagimonName = "";
+
+            saveManager = SaveManager.Instance;
+
+            // Load the imagimon list from the file
+            imagimonList = saveManager.LoadImagimonData();
+            Debug.Log("Imagimon data loaded. Count: " + imagimonList.Count);
+
+            // Check the imagimon count and update the save button status
+            UpdateSaveButtonStatus();
+
+            // Assign the remove button click event
+            removeButton.onClick.AddListener(RemoveImagimon);
         }
-        // Update dropdown2
-        dropdown2.value = 0;
-        Dropdown2ValueChanged(dropdown2); //if same choice
-    }
 
-    void Dropdown2ValueChanged(Dropdown change)
-    {
-        int parentIndex = dropdown1.value - 1; //Placeholder
-        int parent2Index = dropdown2.value;
-        int index = change.value;
-        List<string> options = new List<string>();
-        if (parentIndex < 0) return; // Placeholder selected, do nothing
-
-        Debug.Log("parentIndex: " + parentIndex);
-        Debug.Log("parent2Index: " + parent2Index);
-        Debug.Log("currentIndex: " + index);
-
-        if (parent2Index >= 0 && parent2Index < rightspritelist2[parentIndex].Count)
+        void InitializeDropdown(Dropdown dropdown, List<string> options)
         {
-            foreach (var sprite in rightspritelist2[parentIndex][parent2Index])
+            dropdown.ClearOptions();
+            dropdown.AddOptions(options);
+        }
+
+        void Dropdown1ValueChanged(Dropdown change)
+        {
+            int index = change.value - 1; // Placeholder
+            if (index < 0)
+            {
+                // Revert to the previous valid value if the placeholder is selected
+                dropdown1.value = previousDropdown1Value + 1;
+                return;
+            }
+
+            previousDropdown1Value = index; // Update the previous valid value
+
+            List<string> options = new List<string>();
+            foreach (var sprite in rightspritelist[index])
             {
                 options.Add(sprite.name);
             }
-            InitializeDropdown(dropdown3, options);
+            InitializeDropdown(dropdown2, options);
 
-            // Update targetImage to the selected sprite
-            if (index >= 0 && index < rightspritelist[parentIndex].Count)
+            // Clear dropdown3
+            InitializeDropdown(dropdown3, new List<string>());
+
+            // Update targetImage to the first sprite of the selected category
+            if (rightspritelist[index].Count > 0)
             {
-                targetImage.sprite = rightspritelist[parentIndex][index];
+                targetImage.sprite = rightspritelist[index][0];
+                chosenImagimonSprite = targetImage.sprite;
+            }
+            // Update dropdown2
+            dropdown2.value = 0;
+            Dropdown2ValueChanged(dropdown2); //if same choice
+        }
+
+        void Dropdown2ValueChanged(Dropdown change)
+        {
+            int parentIndex = dropdown1.value - 1; // Placeholder
+            int parent2Index = dropdown2.value;
+            int index = change.value;
+            List<string> options = new List<string>();
+            if (parentIndex < 0) return; // Placeholder selected, do nothing
+
+            Debug.Log("parentIndex: " + parentIndex);
+            Debug.Log("parent2Index: " + parent2Index);
+            Debug.Log("currentIndex: " + index);
+
+            if (parent2Index >= 0 && parent2Index < rightspritelist2[parentIndex].Count)
+            {
+                foreach (var sprite in rightspritelist2[parentIndex][parent2Index])
+                {
+                    options.Add(sprite.name);
+                }
+                InitializeDropdown(dropdown3, options);
+
+                // Update targetImage to the selected sprite
+                if (index >= 0 && index < rightspritelist[parentIndex].Count)
+                {
+                    targetImage.sprite = rightspritelist[parentIndex][index];
+                    chosenImagimonSprite = targetImage.sprite;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("parent2Index is out of bounds");
+            }
+        }
+
+        void Dropdown3ValueChanged(Dropdown change)
+        {
+            int parentIndex = dropdown1.value - 1; // Placeholder
+            int secParentIndex = dropdown2.value;
+            int index = change.value;
+            if (index >= 0 && index < rightspritelist2[parentIndex][secParentIndex].Count)
+            {
+                targetImage.sprite = rightspritelist2[parentIndex][secParentIndex][index];
                 chosenImagimonSprite = targetImage.sprite;
             }
         }
-        else
+
+        public void SaveImagimon()
         {
-            Debug.LogWarning("parent2Index is out of bounds");
-        }
-    }
+            string imagimonName = nameInputField.text;
 
-    void Dropdown3ValueChanged(Dropdown change)
-    {
-        int parentIndex = dropdown1.value - 1; // Placeholder
-        int secParentIndex = dropdown2.value;
-        int index = change.value;
-        if (parentIndex < 0) return; // Placeholder selected, do nothing
+            if (string.IsNullOrEmpty(imagimonName))
+            {
+                Debug.LogWarning("Imagimon name is empty.");
+                return;
+            }
 
-        // Update targetImage to the selected sprite
-        if (index >= 0 && index < rightspritelist2[parentIndex][secParentIndex].Count)
-        {
-            targetImage.sprite = rightspritelist2[parentIndex][secParentIndex][index];
-            chosenImagimonSprite = targetImage.sprite;
-        }
-    }
-
-    public void SaveImagimon()
-    {
-        //NAME
-        imagimonName = nameInputField.text;
-        Debug.Log("Imagimon's Name is " + imagimonName);
-
-        //IMAGIMON-SPRITE
-        Debug.Log("Saved ImagimonSprite: " + chosenImagimonSprite.name);
-
-        //ATTACKS
-        List<string> attacks = new List<string>(AttacksSelector.Instance.attacks);
-        string allAttacks = string.Join(", ", attacks);
-        Debug.Log("Saved ImagimonAttacks: " + allAttacks);
-        foreach (string attack in attacks)
-        {
-            Debug.Log(attack);
-        }
-        //STATS
-        List<int> stats = new List<int>(StatsManager.Instance.stats);
-        Debug.Log("Stats: " + string.Join(", ", stats));
-        foreach (int stat in stats)
-        {
+            //STATS
+            List<int> stats = StatsManager.Instance.stats;
+            Debug.Log("Stats: " + string.Join(", ", stats));
+            foreach (int stat in stats)
+            {
             Debug.Log(stat);
+            }
+            //ATTACKS
+            List<string> attacks = AttacksSelector.Instance.attacks;
+            string allAttacks = string.Join(", ", attacks);
+            Debug.Log("Saved ImagimonAttacks: " + allAttacks);
+            foreach (string attack in attacks)
+            {
+            Debug.Log(attack);
+            }
+
+            ImagimonData newImagimon = new ImagimonData(imagimonName, chosenImagimonSprite, stats, attacks);
+            imagimonList.Add(newImagimon);
+            saveManager.SaveImagimonData(imagimonList);
+
+            UpdateSaveButtonStatus();
         }
-        //TO DO: give SaveImagimon to ImagimonBase?
 
-        ImagimonData newImagimon = new ImagimonData(
-            imagimonName,
-            chosenImagimonSprite,
-            stats,
-            attacks
-        );
-
-        // Add newImagimon to the list instead of creating a new list
-        if(imagimonList == null) 
+        public void RemoveImagimon()
         {
-            imagimonList = new List<ImagimonData> { newImagimon };
+            int selectedIndex = removeDropdown.value;
+            if (selectedIndex >= 0 && selectedIndex < imagimonList.Count)
+            {
+                imagimonList.RemoveAt(selectedIndex);
+                saveManager.SaveImagimonData(imagimonList);
+
+                // Update removeDropdown options
+                List<string> options = new List<string>();
+                foreach (var imagimon in imagimonList)
+                {
+                    options.Add(imagimon.imagimonName);
+                }
+                removeDropdown.ClearOptions();
+                removeDropdown.AddOptions(options);
+
+                UpdateSaveButtonStatus();
+            }
         }
-        
-        imagimonList.Add(newImagimon);
-        saveManager.SaveImagimonData(imagimonList);
 
-        // Check the imagimon count and update the save button status
-        UpdateSaveButtonStatus();
-    }
-
-    private void UpdateSaveButtonStatus()
-    {
-        // Disable the save button if there are 5 or more imagimons
-        if (imagimonList.Count >= 5)
+        private void UpdateSaveButtonStatus()
+        {
+            if (imagimonList.Count >= 5)
         {
             saveButton.interactable = false;
+            //fullTeamMessage.text = "Your team is full. Remove an Imagimon to add a new one.";
             fullTeamMessage.gameObject.SetActive(true); // Show the full team message
             OpenRemovePanel();
             Debug.Log("Imagimon list is full. Save button disabled.");
@@ -243,9 +251,8 @@ public class SpriteChanger : MonoBehaviour
             fullTeamMessage.gameObject.SetActive(false); // Hide the full team message
             removePanel.SetActive(false);
         }
-    }
-
-    private void OpenRemovePanel()
+        }
+        private void OpenRemovePanel()
     {
         // Populate the remove dropdown with imagimon names
         List<string> options = new List<string>();
@@ -256,17 +263,5 @@ public class SpriteChanger : MonoBehaviour
         removePanel.SetActive(true); // Show the remove panel
         InitializeDropdown(removeDropdown, options);
     }
-
-    public void RemoveImagimon()
-    {
-        int index = removeDropdown.value;
-        if (index >= 0 && index < imagimonList.Count)
-        {
-            imagimonList.RemoveAt(index);
-            saveManager.SaveImagimonData(imagimonList);
-            UpdateSaveButtonStatus();
-            //removePanel.SetActive(false); // Hide the remove panel
-            Debug.Log("Removed Imagimon at index " + index);
-        }
     }
 }

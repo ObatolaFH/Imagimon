@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace ImagimonTheGame
+{
 public class HPBar : MonoBehaviour
 {
     [SerializeField] GameObject health;
@@ -24,4 +26,5 @@ public class HPBar : MonoBehaviour
         }
         health.transform.localScale = new Vector3(newHp, 1f);
     }
+}
 }
